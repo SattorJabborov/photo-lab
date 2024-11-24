@@ -132,14 +132,14 @@ const frameStyles = [
     { id: 'modern-frame', style: 'modern', price: 15, imageUrl: 'https://spb.zvetnoe.ru/upload/catalog/2021/07/4150-BK-1.jpg' },
     { id: 'vintage-frame', style: 'vintage', price: 20, imageUrl: 'https://spb.zvetnoe.ru/upload/catalog/2021/07/3193-BM-1.jpg' },
     { id: 'frame-1', style: 'frame-1', price: 12, imageUrl: 'https://avatars.mds.yandex.net/get-mpic/5232043/img_id4590350511960185259.jpeg/orig' },
-    { id: 'frame-2', style: 'frame-2', price: 18, imageUrl: 'https://en.idei.club/uploads/posts/2023-06/1686867305_en-idei-club-p-green-color-background-dizain-instagram-64.jpg' },
+    { id: 'frame-2', style: 'frame-2', price: 18, imageUrl: 'https://i.pinimg.com/originals/3b/6a/ed/3b6aede10e30d93886268de33d67039e.jpg' },
     { id: 'frame-3', style: 'frame-3', price: 22, imageUrl: 'https://cdn3.static1-sima-land.com/items/7368718/1/700.jpg' },
     { id: 'frame-4', style: 'frame-4', price: 25, imageUrl: 'https://cdn.pixabay.com/photo/2015/11/01/21/25/frame-1017603_960_720.png' },
     { id: 'frame-5', style: 'frame-5', price: 30, imageUrl: 'https://i.pinimg.com/originals/97/ba/6b/97ba6b013476ae309f2876774e72c89a.jpg' },
     { id: 'frame-6', style: 'frame-6', price: 15, imageUrl: 'https://i.pinimg.com/736x/30/6c/3b/306c3bf05649c0e3a37cfc6781b18332.jpg' },
     { id: 'frame-7', style: 'frame-7', price: 18, imageUrl: 'https://i.pinimg.com/originals/cd/ea/a9/cdeaa9d426daf32c419baafbbfcc57d2.jpg' },
     { id: 'frame-8', style: 'frame-8', price: 22, imageUrl: 'https://i.pinimg.com/originals/14/14/9c/14149c07be148e312a150ed31dc2cfc4.jpg' },
-    { id: 'frame-9', style: 'frame-9', price: 25, imageUrl: 'https://llllline.com/image/wkseller/659/3d-paint-photo-frame-ai-cover.jpg' },
+    { id: 'frame-9', style: 'frame-9', price: 25, imageUrl: 'https://i.pinimg.com/736x/48/9f/6f/489f6f328a6f281b04f05eee193c55e5.jpg' },
     { id: 'frame-10', style: 'frame-10', price: 30, imageUrl: 'https://cdn.pixabay.com/photo/2015/11/01/21/25/frame-1017603_960_720.png' }
 ];
 
