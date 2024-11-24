@@ -24,6 +24,7 @@ const storage = getStorage(app);
 // Drag and Drop Functionality
 const dragDropZone = document.getElementById('drag-drop-zone');
 const imageInput = document.getElementById('image-input');
+const dragDropText = document.getElementById('drag-drop-text'); // Assuming you have a container for text
 
 dragDropZone.addEventListener('click', () => imageInput.click());
 dragDropZone.addEventListener('dragover', (event) => {
@@ -37,9 +38,23 @@ dragDropZone.addEventListener('drop', (event) => {
     const files = event.dataTransfer.files;
     if (files.length > 0) {
         imageInput.files = files;
-        alert('Image uploaded: ' + files[0].name);
+        displayImageName(files[0]);
     }
 });
+
+// Handle file input change
+imageInput.addEventListener('change', (event) => {
+    const files = event.target.files;
+    if (files.length > 0) {
+        displayImageName(files[0]);
+    }
+});
+
+// Update text with image name
+function displayImageName(file) {
+    dragDropText.textContent = `Image selected: ${file.name}`;
+}
+
 
 // Sign In & Sign Up Logic
 const signInButton = document.getElementById('sign-in-btn');
@@ -102,7 +117,7 @@ function updatePrice() {
         const customWidth = parseFloat(document.getElementById('custom-width').value) || 0;
         const customHeight = parseFloat(document.getElementById('custom-height').value) || 0;
         console.log('Custom dimensions:', customWidth, customHeight);
-        price += customWidth * customHeight * 0.5;
+        price += customWidth + customHeight * 2;
     }
 
     // Get selected frame
