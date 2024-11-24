@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Lab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+
+ body {
+    font-family: Arial, sans-serif;
+    background: url('https://en.idei.club/uploads/posts/2023-06/1686867305_en-idei-club-p-green-color-background-dizain-instagram-64.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.navbar {
+    background-color: #6c757d;
+}
+
+.navbar .btn {
+    color: white;
+    margin-right: 10px;
+}
+
+.upload-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;  /* Ensure it takes full width of its parent */
+    max-width: 500px;  /* Limit the width to a specific value */
+    margin: 0 auto;  /* Center horizontally */
+    position: relative;
+    padding: 20px;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5); /* 50% transparent white */
+}
+
+.card:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s;
+}
+
+/* Order status button positioned in top-right */
+.order-status-button {
+            position: fixed;
+            top: 120px;
+            left: 40px;
+            z-index: 1000;
+        }
+
+        .order-status-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 15px;
+            width: 250px;
+        }
+
+        .order-status-button:hover .order-status-dropdown {
+            display: block;
+        }
+
+/* Drag and drop section styling */
+.drag-drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.drag-drop-zone.drag-over {
+    border-color: #6c757d;
+    background-color: #f1f1f1;
+}
+
+/* Scrollable frame style container */
+.frame-style-container {
+    display: flex; /* Aligns images in a row */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 10px; /* Space between images */
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%; /* Ensures it takes the full width */
+    scroll-snap-type: x mandatory; /* Optional: Smooth snapping of images */
+    -webkit-overflow-scrolling: touch; /* Makes it smooth on iOS devices */
+}
+
+.frame-style-container img {
+    width: 100px; /* Set a fixed width for each image */
+    height: 100px; /* Set a fixed height for each image */
+    object-fit: cover; /* Ensures the image maintains its aspect ratio */
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: border 0.3s;
+    scroll-snap-align: start; /* Optional: Snap the images to the start of the container */
+}
+
+/* Add hover effect to frames */
+.frame-style-container img:hover {
+    border-color: #007bff;
+}
+
+/* Highlight selected frame */
+.frame-style-container img.selected {
+    border-color: #007bff;
+}
+
+/* Footer Styling */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #6c757d;
+    color: white;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white" href="#">Photo Lab</a>
+            <div>
+                <button class="btn btn-outline-light" id="sign-in-btn">Sign In</button>
+                <button class="btn btn-outline-light" id="sign-up-btn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Order Status Button -->
+    <div class="order-status-button">
+        <button class="btn btn-primary">Order Status</button>
+        <div class="order-status-dropdown">
+            <h6>Order Status</h6>
+            <ul id="order-status" class="list-group">
+                <li class="list-group-item">No orders yet</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+        <div class="card p-4">
+            <h5 class="card-title">Upload Image</h5>
+            <div id="drag-drop-zone" class="drag-drop-zone">
+                Drag & Drop Image Here or Click to Select
+                <input type="file" id="image-input" class="form-control d-none" accept="image/*">
+            </div>
+            <label for="size-select" class="form-label mt-3">Select Size:</label>
+            <select id="size-select" class="form-select">
+                <option value="8x10">8 x 10 inches</option>
+                <option value="8.5x11">8.5 x 11 inches</option>
+                <option value="12x18">12 x 18 inches</option>
+                <option value="18x24">18 x 24 inches</option>
+                <option value="24x36">24 x 36 inches</option>
+                <option value="custom">Custom size</option>
+            </select>
+            <div id="custom-size-inputs" class="mt-3 d-none">
+                <label for="custom-width" class="form-label">Width (inches):</label>
+                <input type="number" id="custom-width" class="form-control">
+                <label for="custom-height" class="form-label">Height (inches):</label>
+                <input type="number" id="custom-height" class="form-control">
+            </div>
+            <label for="frame-select" class="form-label mt-3">Frame Style:</label>
+            <div id="frame-style-container" class="frame-style-container">
+                <!-- Placeholder images using online URL -->
+                <img src="https://via.placeholder.com/150" alt="Classic" class="frame" id="classic-frame" data-style="classic">
+                <img src="https://via.placeholder.com/150" alt="Modern" class="frame" id="modern-frame" data-style="modern">
+                <img src="https://via.placeholder.com/150" alt="Vintage" class="frame" id="vintage-frame" data-style="vintage">
+                <!-- Additional placeholders for other frames -->
+                <img src="https://via.placeholder.com/150" alt="Frame 1" class="frame" id="frame-1" data-style="frame-1">
+                <img src="https://via.placeholder.com/150" alt="Frame 2" class="frame" id="frame-2" data-style="frame-2">
+                <img src="https://via.placeholder.com/150" alt="Frame 3" class="frame" id="frame-3" data-style="frame-3">
+                <img src="https://via.placeholder.com/150" alt="Frame 4" class="frame" id="frame-4" data-style="frame-4">
+                <img src="https://via.placeholder.com/150" alt="Frame 5" class="frame" id="frame-5" data-style="frame-5">
+                <img src="https://via.placeholder.com/150" alt="Frame 6" class="frame" id="frame-6" data-style="frame-6">
+                <img src="https://via.placeholder.com/150" alt="Frame 7" class="frame" id="frame-7" data-style="frame-7">
+                <img src="https://via.placeholder.com/150" alt="Frame 8" class="frame" id="frame-8" data-style="frame-8">
+                <img src="https://via.placeholder.com/150" alt="Frame 9" class="frame" id="frame-9" data-style="frame-9">
+                <img src="https://via.placeholder.com/150" alt="Frame 10" class="frame" id="frame-10" data-style="frame-10">
+            </div>
+            
+            <label for="note-input" class="form-label mt-3">Add Note (Optional):</label>
+            <textarea id="note-input" class="form-control" placeholder="Optional instructions"></textarea>
+            <p id="price-display" class="mt-3">Price: $0.00</p>
+            <button type="button" id="submit-btn" class="btn btn-primary w-100">Submit</button>
+        </div>
+    </div>
+
+    <!-- Customer Service Section -->
+    <footer class="footer">
+        <h5>Customer Service</h5>
+        <p>Need help? Contact us at:</p>
+        <p><i class="fa fa-phone"></i> +1 (234) 567-8900</p>
+        <p><i class="fa fa-envelope"></i> support@photolab.com</p>
+    </footer>
+
+   
+    <script src="dist/bundle.js"></script>
+</body>
+</html>
+
